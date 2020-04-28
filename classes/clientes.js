@@ -1,7 +1,6 @@
 const useragent = require('useragent');
 const fs = require('fs');
 const path = require('path');
-const { io } = require('../bin/www');
 
 class Clientes {
     constructor() {
