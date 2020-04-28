@@ -1,12 +1,20 @@
 const useragent = require('useragent');
+const fs = require('fs');
+const path = require('path');
+const { io } = require('../bin/www');
 
 class Clientes {
     constructor() {
+        this.uriDB = path.join( __dirname, '../dbs/clientes.json');
         this.clientes = [];
+
+        this.guardar();
     }
 
     agregarCliente(cliente) {
         this.clientes.push( cliente );
+
+        this.guardar();
 
         return this.clientes;
     }
@@ -24,8 +32,14 @@ class Clientes {
     borrarCliente(id) {
         let clienteBorrado = this.getCliente(id);
         this.clientes = this.clientes.filter( cliente => cliente.id !== id );
+
+        this.guardar();
         
         return clienteBorrado;
+    }
+
+    guardar() { 
+        fs.writeFileSync( this.uriDB, JSON.stringify( this.clientes ) );
     }
 
     log() {
