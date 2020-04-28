@@ -8,6 +8,7 @@ const app = require('../app');
 const debug = require('debug')('khen-server:server');
 const http = require('http');
 const socketIO = require('socket.io');
+const bodyParser = require('body-parser');
 
 
 /**
@@ -23,12 +24,18 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
+/**
+ * Parse JSON
+ */
+app.use( bodyParser.json() );
 
 /**
  * Socket.io
  */
-module.exports.io = socketIO(server)
-require('../sockets/socket')
+const io = socketIO(server);
+app.io = io;
+module.exports.io = io;
+require('../sockets/socket');
 
 /**
  * Listen on provided port, on all network interfaces.
