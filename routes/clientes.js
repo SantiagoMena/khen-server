@@ -1,12 +1,13 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const router = express.Router();
-const clientes = require('../dbs/clientes.json');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-
-  res.json( clientes );
-
+  let clientes = fs.readFileSync(path.join(__dirname, '../dbs/clientes.json'), 'utf8');
+  
+  res.send( clientes );
 });
 
 module.exports = router;
