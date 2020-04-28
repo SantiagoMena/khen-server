@@ -5,6 +5,7 @@ const { io } = require('../bin/www');
 
 class Clientes {
     constructor() {
+        this.pathDB = path.join( __dirname, '../dbs/');
         this.uriDB = path.join( __dirname, '../dbs/clientes.json');
         this.clientes = [];
 
@@ -39,6 +40,9 @@ class Clientes {
     }
 
     guardar() { 
+        if( !fs.existsSync( this.pathDB ) ) {
+            fs.mkdirSync( this.pathDB );
+        }
         fs.writeFileSync( this.uriDB, JSON.stringify( this.clientes ) );
     }
 
@@ -56,5 +60,6 @@ class Clientes {
 }
 
 module.exports = {
-    Clientes
+    Clientes,
+
 }
