@@ -1,18 +1,14 @@
 const useragent = require('useragent');
 const fs = require('fs');
 const path = require('path');
+const { io } = require('../bin/www');
 
 class Clientes {
     constructor() {
         this.uriDB = path.join( __dirname, '../dbs/clientes.json');
-        // verificar si existe el archivo json
-        try {
-            fs.accessSync( this.uriDB, fs.constants.R_OK | fs.constants.W_OK);
-            this.clientes = require('../dbs/clientes.json');
-        } catch (err) {
-            this.clientes = [];
-            this.guardar();
-        }
+        this.clientes = [];
+
+        this.guardar();
     }
 
     agregarCliente(cliente) {
