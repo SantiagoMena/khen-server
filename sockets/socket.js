@@ -20,4 +20,8 @@ io.on( 'connection', socket => {
             console.log(`Cliente ${ socket.id } Offline!`);
         }
     });
+
+    socket.on('recibido', data => {
+        console.log(socket.id, data);
+    });
 });
