@@ -4,8 +4,6 @@ const { Clientes } = require('../classes/clientes');
 const clientes = new Clientes;
 
 io.on( 'connection', socket => {
-    console.log(`Cliente ${ socket.id } Online!`);
-
     const cliente = {
         id: socket.id,
         headers: socket.handshake.headers
@@ -21,5 +19,9 @@ io.on( 'connection', socket => {
         if( clienteDesconectado ) {
             console.log(`Cliente ${ socket.id } Offline!`);
         }
+    });
+
+    socket.on('recibido', data => {
+        console.log(socket.id, data);
     });
 });
